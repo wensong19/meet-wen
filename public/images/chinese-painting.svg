@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675" fill="none">
+  <rect width="900" height="675" fill="#FBF6EA"/>
+  <path d="M203 514C304 384 361 409 451 279C541 149 658 140 721 96" stroke="#20202A" stroke-opacity=".18" stroke-width="42" stroke-linecap="round"/>
+  <path d="M256 419C305 329 354 316 432 290" stroke="#20202A" stroke-opacity=".33" stroke-width="14" stroke-linecap="round"/>
+  <path d="M526 237C617 254 679 221 736 168" stroke="#20202A" stroke-opacity=".25" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="326" cy="305" r="34" fill="#B83B32" fill-opacity=".56"/>
+  <circle cx="392" cy="255" r="24" fill="#B83B32" fill-opacity=".42"/>
+  <circle cx="610" cy="202" r="29" fill="#B83B32" fill-opacity=".45"/>
+  <path d="M114 567H786" stroke="#D7A642" stroke-opacity=".55" stroke-width="3"/>
+  <text x="82" y="90" fill="#20202A" fill-opacity=".55" font-family="Georgia, serif" font-size="44">Chinese Brush Painting</text>
+</svg>

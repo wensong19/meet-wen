@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675" fill="none">
+  <rect width="900" height="675" fill="#EEF5F7"/>
+  <circle cx="691" cy="158" r="76" fill="#D7A642"/>
+  <path d="M87 248C192 171 264 286 370 206C476 126 588 227 708 207C798 192 834 126 858 94" stroke="#244E8F" stroke-opacity=".62" stroke-width="24" stroke-linecap="round"/>
+  <path d="M43 349C153 271 263 392 383 319C520 237 644 334 784 283" stroke="#2D7C72" stroke-opacity=".55" stroke-width="22" stroke-linecap="round"/>
+  <path d="M70 475C201 384 309 500 456 421C589 350 714 450 846 379" stroke="#B83B32" stroke-opacity=".42" stroke-width="20" stroke-linecap="round"/>
+  <path d="M126 586C252 502 373 616 516 530C645 453 755 536 859 493" stroke="#20202A" stroke-opacity=".22" stroke-width="18" stroke-linecap="round"/>
+  <text x="72" y="100" fill="#20202A" fill-opacity=".6" font-family="Georgia, serif" font-size="44">Van Gogh Inspired</text>
+</svg>

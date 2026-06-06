@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="675" viewBox="0 0 900 675" fill="none">
+  <rect width="900" height="675" fill="#071224"/>
+  <path d="M83 240C190 123 312 231 427 150C563 54 695 167 811 99" stroke="#FFD86F" stroke-opacity=".32" stroke-width="30" stroke-linecap="round"/>
+  <path d="M63 390C196 278 307 421 455 315C594 214 704 348 838 271" stroke="#4E84D9" stroke-opacity=".38" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="450" cy="366" r="154" fill="#F8F2E6" fill-opacity=".9"/>
+  <circle cx="450" cy="366" r="116" fill="#D7A642" fill-opacity=".28"/>
+  <path d="M337 328C407 273 493 276 564 330" stroke="#B83B32" stroke-opacity=".55" stroke-width="20" stroke-linecap="round"/>
+  <path d="M330 404C407 457 499 456 572 401" stroke="#2D7C72" stroke-opacity=".55" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="388" cy="361" r="24" fill="#B83B32" fill-opacity=".72"/>
+  <circle cx="456" cy="342" r="18" fill="#2D7C72" fill-opacity=".72"/>
+  <circle cx="515" cy="378" r="22" fill="#244E8F" fill-opacity=".65"/>
+  <text x="76" y="610" fill="#F8F2E6" fill-opacity=".82" font-family="Georgia, serif" font-size="42">Cooking Studio Placeholder</text>
+</svg>
