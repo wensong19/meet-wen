@@ -40,20 +40,21 @@ export const rootsExpressionGallery: Record<RootsExpressionTabId, RootsExpressio
   dance: [
     {
       title: "Dance Archive",
-      description: "Dance shaped rhythm, discipline, expression, and movement in my life from an early age.",
+      description:
+        "My mom began training me in traditional and folk dance when I was five. It was beautiful, but also demanding — long practices, competitions, group performances, solo moments, and the discipline of repeating movements until they became part of the body.\n\nDance shaped my sense of rhythm, patience, expression, and movement from an early age. It taught me that beauty often comes from practice, endurance, and emotion working together.",
       image: "/images/roots-expression/dance-archive-collage.jpg",
       fallbackImage: "/images/dance-archive.svg",
-      tags: ["Dance", "Movement", "Performance", "Rhythm"]
+      tags: ["Dance", "Rhythm", "Discipline", "Performance"]
     }
   ],
   life: [
     {
       title: "Food and Everyday Beauty",
       description:
-        "Food, care, and daily rituals are also part of my creative life — another way memory and beauty take shape.",
+        "In Chinese culture, delicious food is one of life’s greatest joys. For me, food is also a form of memory — a way to remember places, people, travel, and love.\n\nAs we traveled around the world, we tasted different cuisines, collected food memories, and then tried to recreate those flavors at home. Cooking became another creative practice: part curiosity, part care, and part storytelling.",
       image: "/images/roots-expression/food-and-everyday-beauty.jpg",
       fallbackImage: "/images/cooking-studio.svg",
-      tags: ["Food", "Cooking", "Daily Life", "Care"]
+      tags: ["Food", "Travel", "Cooking", "Memory", "Home", "Joy", "Care"]
     }
   ]
 };

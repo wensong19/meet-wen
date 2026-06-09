@@ -4,7 +4,7 @@ export const siteContent = {
     title: "Meet Wen: Half Artist, Half Data Nerd",
     description: "A visual AI profile about creativity, data science, cybersecurity, and lifelong learning."
   },
-  footer: "Milestone 1 prototype. Mock chatbot only, no API keys or external AI calls."
+  footer: "Meet Wen: Half Artist, Half Data Nerd."
 };
 
 // Edit floating navigation labels and anchor targets here.
@@ -14,7 +14,6 @@ export const navContent = {
     { href: "#top", label: "Home" },
     { href: "#creative-world", label: "Creative" },
     { href: "#data-nerd", label: "Data Nerd" },
-    { href: "#bridge", label: "Bridge" },
     { href: "#ask-wen", label: "Ask Wen" }
   ]
 };

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Network, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { storySectionContent, storySections, type StorySection } from "@/data/storySections";
 import {
   rootsExpressionGallery,
@@ -12,26 +12,17 @@ import {
   type RootsExpressionItem,
   type RootsExpressionTabId
 } from "@/data/rootsExpressionGallery";
-import { bridgeWorld, dataWorld, modalContent } from "@/data/visualWorlds";
+import { dataBridgePopup, modalContent } from "@/data/visualWorlds";
 import { SectionShell } from "./SectionShell";
 
 const toneClasses = {
   warm: "text-gilt border-gilt/30",
-  jade: "text-teal-200 border-teal-200/25",
-  lapis: "text-cyan-200 border-cyan-200/25",
-  plum: "text-amber-100 border-gilt/25"
+  lapis: "text-cyan-200 border-cyan-200/25"
 };
 
 const glowClasses = {
   warm: "hover:border-gilt/70 hover:shadow-[0_28px_95px_rgba(255,216,111,0.24)]",
-  cool: "hover:border-cyan-200/60 hover:shadow-[0_28px_95px_rgba(45,185,190,0.22)]",
-  bridge: "hover:border-gilt/50 hover:shadow-[0_28px_95px_rgba(84,127,224,0.24)]"
-};
-
-const nodeToneClasses = {
-  gold: "bg-gilt text-[#071224] shadow-[0_0_28px_rgba(255,216,111,0.5)]",
-  blue: "bg-[#547fe0] text-white shadow-[0_0_28px_rgba(84,127,224,0.5)]",
-  teal: "bg-[#0f8c8b] text-white shadow-[0_0_28px_rgba(15,140,139,0.5)]"
+  cool: "hover:border-cyan-200/60 hover:shadow-[0_28px_95px_rgba(45,185,190,0.22)]"
 };
 
 export function StorySections() {
@@ -104,33 +95,12 @@ export function StorySections() {
                 {section.id === "creative-world" ? (
                   <RootsPreview />
                 ) : (
-                  <div className="relative min-h-64 overflow-hidden rounded-[1.5rem] border border-white/20 bg-white/10 p-5">
-                    <div className="absolute inset-0 opacity-70">
-                      <div className="brush-orbit absolute left-8 top-12 h-20 w-56 rotate-[-14deg] rounded-full bg-gilt/20 blur-2xl" />
-                      <div className="brush-orbit absolute bottom-12 right-8 h-24 w-64 rotate-[17deg] rounded-full bg-blue-500/20 blur-2xl [animation-delay:1.5s]" />
-                      <svg className="absolute inset-0 h-full w-full opacity-70" viewBox="0 0 520 320" fill="none" aria-hidden>
-                        <path d="M28 214C98 127 184 188 250 128C332 54 423 102 493 64" stroke="#FFD86F" strokeOpacity=".24" strokeWidth="18" strokeLinecap="round" />
-                        <path d="M38 258C130 194 210 257 304 194C398 132 438 214 500 170" stroke="#78A9FF" strokeOpacity=".24" strokeWidth="16" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                    <div className="relative flex h-full flex-col justify-between">
-                      <div className="flex items-center justify-between">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-current/25 bg-white/10 gold-glow">
-                          <section.icon size={26} aria-hidden />
-                        </div>
-                        <span className="font-serif text-7xl leading-none text-white/10">0{index + 1}</span>
-                      </div>
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-[0.28em]">{storySectionContent.sideLabels[section.tone]}</p>
-                        <div className="mt-4 h-2 rounded-full bg-current/30">
-                          <div className="h-full w-2/3 rounded-full bg-current transition-all duration-500 group-hover:w-full" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <DataNerdPreview />
                 )}
 
-                <div className="moonlit-panel rounded-[1.5rem] border border-gilt/20 p-6 text-ink backdrop-blur md:p-8">
+                <div
+                  className="moonlit-panel rounded-[1.5rem] border border-gilt/20 p-6 text-ink backdrop-blur md:p-8 lg:min-h-[430px]"
+                >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-xs font-black uppercase tracking-[0.25em] text-lapis">{section.eyebrow}</p>
                     <span className="rounded-full bg-[#071224] px-3 py-1 text-xs font-black text-gilt">
@@ -140,23 +110,14 @@ export function StorySections() {
                   <h3 className="mt-4 max-w-4xl font-serif text-4xl font-semibold leading-tight text-[#071224] sm:text-5xl">
                     {section.title}
                   </h3>
-                  <p className="mt-5 max-w-4xl text-base leading-8 text-ink/70">{section.body}</p>
+                  <p className="mt-5 max-w-4xl text-base leading-8 text-ink/70">
+                    {section.body}
+                  </p>
                   {section.id === "creative-world" ? (
                     <div className="mt-8 inline-flex items-center gap-2 border-b border-lapis/20 pb-1 text-sm font-black text-lapis transition group-hover:border-lapis group-hover:text-[#071224]">
                       Open story <ChevronRight size={16} aria-hidden /> Paintings, Dance, Life
                     </div>
-                  ) : (
-                    <div className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                      {section.details.map((detail) => (
-                        <div
-                          key={detail}
-                          className="min-h-24 rounded-2xl border border-[#071224]/10 bg-white/50 p-4 text-sm font-semibold leading-6 text-ink/70 transition group-hover:bg-white/75"
-                        >
-                          {detail}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </motion.button>
@@ -208,7 +169,6 @@ export function StorySections() {
                   />
                 )}
                 {activeSection.id === "data-nerd" && <DataModal />}
-                {activeSection.id === "bridge" && <BridgeModal />}
               </div>
             </motion.div>
           </motion.div>
@@ -220,20 +180,18 @@ export function StorySections() {
 
 function RootsPreview() {
   return (
-    <div className="roots-preview relative min-h-72 overflow-hidden rounded-[1.5rem] border border-gilt/25 bg-[#071a38]">
+    <StoryImagePanel className="roots-preview border-gilt/25">
       <div className="absolute inset-0 starry-night opacity-80" />
       <div className="absolute inset-0 oil-texture opacity-55" />
       <div className="roots-preview-stars absolute inset-0" aria-hidden />
-      <div className="absolute inset-5 rotate-[-2deg] overflow-hidden rounded-[1.25rem] border border-[#fff1bf]/20 bg-[#050915]/70 shadow-2xl shadow-black/30 transition duration-500 group-hover:rotate-0 group-hover:scale-[1.01]">
-        <Image
-          src="/images/roots-expression-collage.png"
-          alt="Roots and Expression collage"
-          fill
-          className="object-contain p-2 opacity-95 drop-shadow-[0_14px_30px_rgba(0,0,0,0.35)]"
-          sizes="(min-width: 1024px) 32vw, 100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071224]/35 via-transparent to-[#f3c64e]/5" />
-      </div>
+      <Image
+        src="/images/roots-expression-collage.png"
+        alt="Roots and Expression collage"
+        fill
+        className="object-cover opacity-95 transition duration-500 group-hover:scale-[1.01]"
+        sizes="(min-width: 1024px) 32vw, 100vw"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#071224]/35 via-transparent to-[#f3c64e]/5" />
       <svg className="absolute inset-0 h-full w-full" viewBox="0 0 520 340" fill="none" aria-hidden>
         <path d="M-18 252C85 162 159 253 260 174C361 94 432 185 548 92" stroke="#547FE0" strokeOpacity=".38" strokeWidth="22" strokeLinecap="round" />
         <path d="M-4 278C93 214 180 276 286 214C384 157 446 213 535 158" stroke="#48B9A9" strokeOpacity=".28" strokeWidth="13" strokeLinecap="round" />
@@ -243,6 +201,30 @@ function RootsPreview() {
       <span className="roots-preview-spark roots-preview-spark-hero right-[17%] top-[16%] [animation-delay:1.8s]" aria-hidden />
       <span className="roots-preview-spark roots-preview-spark-cool bottom-[22%] left-[42%] [animation-delay:3s]" aria-hidden />
       <div className="absolute bottom-7 right-7 h-3 w-3 rounded-full bg-gilt shadow-[0_0_20px_rgba(243,198,78,0.8)]" />
+    </StoryImagePanel>
+  );
+}
+
+function DataNerdPreview() {
+  return (
+    <StoryImagePanel className="border-cyan-200/25">
+      <Image
+        src="/images/cosmic_data_science_network_map.png"
+        alt="Moonlit data constellation showing statistics, programming, machine learning, and AI tools."
+        fill
+        className="object-cover"
+        sizes="(min-width: 1024px) 32vw, 100vw"
+      />
+    </StoryImagePanel>
+  );
+}
+
+function StoryImagePanel({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <div
+      className={`relative min-h-72 overflow-hidden rounded-[1.5rem] border bg-[#050915] shadow-2xl shadow-black/30 ${className}`}
+    >
+      {children}
     </div>
   );
 }
@@ -400,100 +382,34 @@ function DataModal() {
   return (
     <div>
       <div className="mb-6 pr-14">
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-cyan-200">{dataWorld.title}</p>
+        <p className="text-xs font-black uppercase tracking-[0.28em] text-gilt">{dataBridgePopup.label}</p>
         <h2 id="story-modal-title" className="mt-3 max-w-3xl font-serif text-4xl font-semibold text-white sm:text-5xl">
-          {dataWorld.subtitle}
-        </h2>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-[1fr_0.95fr]">
-        <div className="relative min-h-[420px] overflow-hidden rounded-[1.5rem] border border-cyan-200/20 bg-[#050915]/80 p-5">
-          <svg className="absolute inset-0 h-full w-full opacity-55" aria-hidden>
-            {dataWorld.tools.slice(0, -1).map((tool, index) => {
-              const next = dataWorld.tools[index + 1];
-              return (
-                <line
-                  key={`${tool.label}-${next.label}`}
-                  x1={`${tool.x}%`}
-                  y1={`${tool.y}%`}
-                  x2={`${next.x}%`}
-                  y2={`${next.y}%`}
-                  stroke="#FFD86F"
-                  strokeOpacity=".25"
-                  strokeWidth="1"
-                />
-              );
-            })}
-          </svg>
-          {dataWorld.tools.map((tool) => (
-            <div
-              key={tool.label}
-              className={`absolute rounded-full px-3 py-2 text-xs font-black ${nodeToneClasses[tool.tone]}`}
-              style={{ left: `${tool.x}%`, top: `${tool.y}%`, transform: "translate(-50%, -50%)" }}
-            >
-              {tool.label}
-            </div>
-          ))}
-          <Network className="absolute bottom-5 right-5 h-14 w-14 text-cyan-200/30" aria-hidden />
-        </div>
-
-        <div className="grid gap-4">
-          <div className="rounded-[1.5rem] border border-white/10 bg-white/10 p-5 backdrop-blur">
-            <div className="flex flex-wrap items-center gap-2">
-              {dataWorld.timeline.map((item, index) => (
-                <div key={item} className="flex items-center gap-2">
-                  <span className="rounded-full bg-gilt px-3 py-1 text-xs font-black text-[#071224]">{item}</span>
-                  {index < dataWorld.timeline.length - 1 && <span className="text-gilt/70">/</span>}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-3">
-            {dataWorld.projects.map((project) => (
-              <div key={project.title} className="rounded-2xl border border-cyan-200/20 bg-white/10 p-4">
-                <h3 className="font-serif text-2xl font-semibold text-white">{project.title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-6 text-white/70">{project.description}</p>
-              </div>
-            ))}
-          </div>
-          <blockquote className="rounded-2xl border border-gilt/20 bg-gilt/10 p-4 font-serif text-2xl text-gilt">
-            {dataWorld.quote}
-          </blockquote>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BridgeModal() {
-  return (
-    <div>
-      <div className="mb-6 pr-14">
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-gilt">{bridgeWorld.title}</p>
-        <h2 id="story-modal-title" className="mt-3 max-w-3xl font-serif text-4xl font-semibold text-white sm:text-5xl">
-          {bridgeWorld.centerMessage}
+          {dataBridgePopup.title}
         </h2>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-        <ComparisonPanel title={bridgeWorld.artistTitle} items={bridgeWorld.artistHabits} tone="warm" />
-        <div className="rounded-full border border-gilt/30 bg-gilt px-5 py-3 text-center text-sm font-black text-[#071224] gold-glow">
+        <HabitPanel title={dataBridgePopup.artistTitle} items={dataBridgePopup.artistHabits} tone="warm" />
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-gilt/30 bg-gilt text-xl font-black text-[#071224] gold-glow">
           +
         </div>
-        <ComparisonPanel title={bridgeWorld.dataTitle} items={bridgeWorld.dataHabits} tone="cool" />
+        <HabitPanel title={dataBridgePopup.dataTitle} items={dataBridgePopup.dataHabits} tone="cool" />
       </div>
 
       <blockquote className="mt-5 rounded-[1.5rem] border border-white/10 bg-white/10 p-5 text-center font-serif text-3xl leading-tight text-white">
-        {bridgeWorld.quote}
+        {dataBridgePopup.quote}
       </blockquote>
     </div>
   );
 }
 
-function ComparisonPanel({ title, items, tone }: { title: string; items: string[]; tone: "warm" | "cool" }) {
+function HabitPanel({ title, items, tone }: { title: string; items: string[]; tone: "warm" | "cool" }) {
   return (
-    <div className={`rounded-[1.5rem] border p-5 ${tone === "warm" ? "border-gilt/25 bg-gilt/10" : "border-cyan-200/20 bg-cyan-200/10"}`}>
+    <div
+      className={`rounded-[1.5rem] border p-5 backdrop-blur ${
+        tone === "warm" ? "border-gilt/25 bg-gilt/10" : "border-cyan-200/20 bg-cyan-200/10"
+      }`}
+    >
       <h3 className="font-serif text-3xl font-semibold text-white">{title}</h3>
       <div className="mt-5 grid gap-2">
         {items.map((item) => (
