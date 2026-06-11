@@ -78,4 +78,4 @@ Create a beautiful static prototype with:
 - visual story sections
 - gallery placeholders
 - chatbot panel with sample questions
-- polished layout
+  

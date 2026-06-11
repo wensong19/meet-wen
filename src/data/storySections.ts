@@ -37,9 +37,9 @@ export const storySections: StorySection[] = [
   {
     id: "data-nerd",
     eyebrow: "The Data Nerd",
-    title: "Data, syntax, and logic became my nerdy creative language.",
+    title: "Data, syntax, and logic became Wen’s nerdy creative language.",
     body:
-      "Later, I found another kind of pattern language: data, logic, code, and models. What started as a love of math and statistical analysis grew into a career in programming, machine learning, visualization, and applied analytics. I’ve built dashboards, developed analytics platforms, explored AI/ML methods, studied algorithmic bias, and turned complex federal health data into tools and stories people can actually use.",
+      "Later, Wen found another kind of pattern language: data, logic, code, and models. What started as a love of math and statistical analysis grew into a career in programming, machine learning, visualization, and applied analytics. She has built dashboards, developed analytics platforms, explored AI/ML methods, studied algorithmic bias, and turned complex federal health data into tools and stories people can actually use.",
     icon: Cpu,
     tone: "lapis",
     glow: "cool"

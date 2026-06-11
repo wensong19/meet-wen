@@ -11,7 +11,7 @@ export const siteContent = {
 export const navContent = {
   brand: "Meet Wen",
   items: [
-    { href: "#top", label: "Home" },
+    { href: "#home", label: "Home" },
     { href: "#creative-world", label: "Creative" },
     { href: "#data-nerd", label: "Data Nerd" },
     { href: "#ask-wen", label: "Ask Wen" }

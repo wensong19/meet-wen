@@ -13,5 +13,5 @@ export const dataBridgePopup = {
   artistHabits: ["Observation", "Rhythm", "Composition", "Patience", "Emotion", "Visual storytelling"],
   dataTitle: "Data habits",
   dataHabits: ["Pattern recognition", "Logic", "Structure", "Evidence", "Iteration", "Decision support"],
-  quote: "I do not see art and data as opposites. I see them as two ways of paying attention."
+  quote: "Wen does not see art and data as opposites. She sees them as two ways of paying attention."
 };

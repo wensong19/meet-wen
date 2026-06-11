@@ -35,6 +35,16 @@ function StarryNightLayer() {
       </div>
       <VanGoghStar className="hero-parallax-near left-[7%] top-[14%]" />
       <VanGoghStar className="hero-parallax-near right-[13%] top-[20%]" compact />
+      <svg className="night-wind-swirl absolute -right-16 top-0 h-[42%] w-[48%] opacity-65" viewBox="0 0 620 360" fill="none" aria-hidden>
+        <g className="night-wind-swirl-primary">
+          <path d="M186 72C282 19 402 31 485 86C548 128 551 184 495 205C430 230 353 183 377 139C398 102 469 108 501 145" stroke="#030712" strokeOpacity=".72" strokeWidth="22" strokeLinecap="round" />
+          <path d="M250 116C336 80 427 94 493 137" stroke="#07101F" strokeOpacity=".76" strokeWidth="12" strokeLinecap="round" />
+        </g>
+        <g className="night-wind-swirl-secondary">
+          <path d="M315 224C386 180 480 189 559 236" stroke="#020611" strokeOpacity=".68" strokeWidth="18" strokeLinecap="round" />
+          <path d="M378 264C442 231 513 239 583 275" stroke="#081426" strokeOpacity=".7" strokeWidth="10" strokeLinecap="round" />
+        </g>
+      </svg>
       <svg className="painterly-swirl absolute -left-32 top-4 h-[72%] w-[88%] opacity-90" viewBox="0 0 820 560" fill="none" aria-hidden>
         <path d="M34 300C126 156 256 217 338 144C441 52 606 77 706 147C807 218 771 353 653 363C538 373 451 242 526 166C584 108 702 137 712 223" stroke="#FFD65F" strokeOpacity=".46" strokeWidth="42" strokeLinecap="round" />
         <path d="M48 364C170 234 282 338 410 230C539 121 663 263 795 178" stroke="#2F70CB" strokeOpacity=".42" strokeWidth="34" strokeLinecap="round" />
@@ -212,7 +222,7 @@ export function Hero() {
   return (
     <header
       ref={heroRef}
-      id="top"
+      id="home"
       className="relative min-h-screen overflow-hidden bg-[#071224] text-white"
       onPointerMove={updateParallax}
       onPointerLeave={resetParallax}

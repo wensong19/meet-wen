@@ -5,7 +5,7 @@ import { Bot, Brush, Home, LineChart, Menu, Sparkles, X } from "lucide-react";
 import { navContent } from "@/data/aboutWen";
 
 const navIcons = {
-  "#top": Home,
+  "#home": Home,
   "#creative-world": Brush,
   "#data-nerd": LineChart,
   "#ask-wen": Bot
@@ -16,6 +16,15 @@ export function FloatingNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      setActiveHref(navContent.items[0].href);
+    }
+
     const sections = navContent.items
       .map((item) => ({ ...item, section: document.querySelector<HTMLElement>(item.href) }))
       .filter((item): item is { href: string; label: string; section: HTMLElement } => Boolean(item.section));
@@ -102,8 +111,8 @@ export function FloatingNav() {
       >
         <div className="flex min-h-14 items-center justify-between px-4">
           <a
-            href="#top"
-            onClick={() => selectItem("#top")}
+            href="#home"
+            onClick={() => selectItem("#home")}
             className="inline-flex items-center gap-2 rounded-lg font-bold focus:outline-none focus:ring-2 focus:ring-gilt"
           >
             <Sparkles className="h-4 w-4 text-gilt" aria-hidden />

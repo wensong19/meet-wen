@@ -85,6 +85,10 @@ export function AskWen() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (messages.length === 1 && !isTyping) {
+      return;
+    }
+
     chatEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [messages, isTyping]);
 

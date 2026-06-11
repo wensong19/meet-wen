@@ -12,7 +12,8 @@ import {
   type RootsExpressionItem,
   type RootsExpressionTabId
 } from "@/data/rootsExpressionGallery";
-import { dataBridgePopup, modalContent } from "@/data/visualWorlds";
+import { modalContent } from "@/data/visualWorlds";
+import { BridgeComparisonModal } from "./BridgeComparisonModal";
 import { SectionShell } from "./SectionShell";
 
 const toneClasses = {
@@ -27,25 +28,30 @@ const glowClasses = {
 
 export function StorySections() {
   const [activeSection, setActiveSection] = useState<StorySection | null>(null);
+  const [isBridgeOpen, setIsBridgeOpen] = useState(false);
   const [activeRootTab, setActiveRootTab] = useState<RootsExpressionTabId>("paintings");
   const [activeRootItemIndex, setActiveRootItemIndex] = useState(0);
   const activeRootItems = rootsExpressionGallery[activeRootTab];
   const activeRootItem = activeRootItems[activeRootItemIndex] ?? activeRootItems[0];
 
   useEffect(() => {
-    if (!activeSection) {
+    if (!activeSection && !isBridgeOpen) {
       return;
     }
 
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setActiveSection(null);
+        if (isBridgeOpen) {
+          setIsBridgeOpen(false);
+        } else {
+          setActiveSection(null);
+        }
       }
     }
 
     document.addEventListener("keydown", closeOnEscape);
     return () => document.removeEventListener("keydown", closeOnEscape);
-  }, [activeSection]);
+  }, [activeSection, isBridgeOpen]);
 
   function selectRootTab(tabId: RootsExpressionTabId) {
     setActiveRootTab(tabId);
@@ -55,6 +61,10 @@ export function StorySections() {
   function cycleRootItem(direction: -1 | 1) {
     const nextIndex = (activeRootItemIndex + direction + activeRootItems.length) % activeRootItems.length;
     setActiveRootItemIndex(nextIndex);
+  }
+
+  function openCreativeStory(section: StorySection) {
+    setActiveSection(section);
   }
 
   return (
@@ -77,11 +87,18 @@ export function StorySections() {
         </div>
         <div className="relative grid gap-6">
           {storySections.map((section, index) => (
-            <motion.button
+            <motion.div
               key={section.id}
               id={section.id}
-              type="button"
-              onClick={() => setActiveSection(section)}
+              role={section.id === "creative-world" ? "button" : undefined}
+              tabIndex={section.id === "creative-world" ? 0 : undefined}
+              onClick={section.id === "creative-world" ? () => openCreativeStory(section) : undefined}
+              onKeyDown={(event) => {
+                if (section.id === "creative-world" && (event.key === "Enter" || event.key === " ")) {
+                  event.preventDefault();
+                  openCreativeStory(section);
+                }
+              }}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -95,17 +112,39 @@ export function StorySections() {
                 {section.id === "creative-world" ? (
                   <RootsPreview />
                 ) : (
-                  <DataNerdPreview />
+                  <DataNerdPreview setIsBridgeOpen={setIsBridgeOpen} />
                 )}
 
                 <div
+                  role={section.id === "data-nerd" ? "button" : undefined}
+                  tabIndex={section.id === "data-nerd" ? 0 : undefined}
+                  onClick={section.id === "data-nerd" ? () => setIsBridgeOpen(true) : undefined}
+                  onKeyDown={(event) => {
+                    if (section.id === "data-nerd" && (event.key === "Enter" || event.key === " ")) {
+                      event.preventDefault();
+                      setIsBridgeOpen(true);
+                    }
+                  }}
                   className="moonlit-panel rounded-[1.5rem] border border-gilt/20 p-6 text-ink backdrop-blur md:p-8 lg:min-h-[430px]"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-xs font-black uppercase tracking-[0.25em] text-lapis">{section.eyebrow}</p>
-                    <span className="rounded-full bg-[#071224] px-3 py-1 text-xs font-black text-gilt">
-                      {storySectionContent.clickHint}
-                    </span>
+                    {section.id === "data-nerd" ? (
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setIsBridgeOpen(true);
+                        }}
+                        className="rounded-full bg-[#071224] px-3 py-1 text-xs font-black text-gilt"
+                      >
+                        {storySectionContent.clickHint}
+                      </button>
+                    ) : (
+                      <span className="rounded-full bg-[#071224] px-3 py-1 text-xs font-black text-gilt">
+                        {storySectionContent.clickHint}
+                      </span>
+                    )}
                   </div>
                   <h3 className="mt-4 max-w-4xl font-serif text-4xl font-semibold leading-tight text-[#071224] sm:text-5xl">
                     {section.title}
@@ -120,12 +159,15 @@ export function StorySections() {
                   ) : null}
                 </div>
               </div>
-            </motion.button>
+            </motion.div>
           ))}
         </div>
       </div>
 
       <AnimatePresence>
+        {isBridgeOpen && (
+          <BridgeComparisonModal onClose={() => setIsBridgeOpen(false)} />
+        )}
         {activeSection && (
           <motion.div
             className="fixed inset-0 z-[60] flex items-center justify-center bg-[#050915]/80 p-4 backdrop-blur-xl"
@@ -168,7 +210,6 @@ export function StorySections() {
                     cycleRootItem={cycleRootItem}
                   />
                 )}
-                {activeSection.id === "data-nerd" && <DataModal />}
               </div>
             </motion.div>
           </motion.div>
@@ -205,15 +246,36 @@ function RootsPreview() {
   );
 }
 
-function DataNerdPreview() {
+function DataNerdPreview({
+  setIsBridgeOpen
+}: {
+  setIsBridgeOpen: (open: boolean) => void;
+}) {
   return (
-    <StoryImagePanel className="border-cyan-200/25">
+    <StoryImagePanel className="data-image-preview border-cyan-200/25">
       <Image
         src="/images/cosmic_data_science_network_map.png"
         alt="Moonlit data constellation showing statistics, programming, machine learning, and AI tools."
         fill
-        className="object-cover"
+        className="object-cover transition duration-500"
         sizes="(min-width: 1024px) 32vw, 100vw"
+      />
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="Open The Bridge comparison"
+        className="absolute inset-0 cursor-zoom-in rounded-[1.5rem] focus:outline-none focus:ring-4 focus:ring-cyan-200/40"
+        onClick={(event) => {
+          event.stopPropagation();
+          setIsBridgeOpen(true);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            event.stopPropagation();
+            setIsBridgeOpen(true);
+          }
+        }}
       />
     </StoryImagePanel>
   );
@@ -375,49 +437,5 @@ function RootStoryImage({
       sizes={sizes}
       onError={() => setSource((currentSource) => (currentSource === item.fallbackImage ? currentSource : item.fallbackImage))}
     />
-  );
-}
-
-function DataModal() {
-  return (
-    <div>
-      <div className="mb-6 pr-14">
-        <p className="text-xs font-black uppercase tracking-[0.28em] text-gilt">{dataBridgePopup.label}</p>
-        <h2 id="story-modal-title" className="mt-3 max-w-3xl font-serif text-4xl font-semibold text-white sm:text-5xl">
-          {dataBridgePopup.title}
-        </h2>
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-        <HabitPanel title={dataBridgePopup.artistTitle} items={dataBridgePopup.artistHabits} tone="warm" />
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-gilt/30 bg-gilt text-xl font-black text-[#071224] gold-glow">
-          +
-        </div>
-        <HabitPanel title={dataBridgePopup.dataTitle} items={dataBridgePopup.dataHabits} tone="cool" />
-      </div>
-
-      <blockquote className="mt-5 rounded-[1.5rem] border border-white/10 bg-white/10 p-5 text-center font-serif text-3xl leading-tight text-white">
-        {dataBridgePopup.quote}
-      </blockquote>
-    </div>
-  );
-}
-
-function HabitPanel({ title, items, tone }: { title: string; items: string[]; tone: "warm" | "cool" }) {
-  return (
-    <div
-      className={`rounded-[1.5rem] border p-5 backdrop-blur ${
-        tone === "warm" ? "border-gilt/25 bg-gilt/10" : "border-cyan-200/20 bg-cyan-200/10"
-      }`}
-    >
-      <h3 className="font-serif text-3xl font-semibold text-white">{title}</h3>
-      <div className="mt-5 grid gap-2">
-        {items.map((item) => (
-          <div key={item} className="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white/80">
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }

@@ -121,14 +121,31 @@ body {
     168px 156px,
     214px 192px,
     286px 254px;
-  animation: shimmer-stars 7s ease-in-out infinite alternate;
+  animation: shimmer-stars 8s ease-in-out infinite alternate;
 }
 
 .painterly-swirl {
   filter:
     drop-shadow(0 20px 80px rgba(215, 166, 66, 0.18))
     drop-shadow(0 12px 56px rgba(84, 127, 224, 0.16));
-  animation: swirl-drift 14s ease-in-out infinite alternate;
+}
+
+.night-wind-swirl {
+  filter:
+    drop-shadow(0 14px 30px rgba(0, 0, 0, 0.34))
+    drop-shadow(0 8px 24px rgba(29, 79, 159, 0.12));
+}
+
+.night-wind-swirl-primary,
+.night-wind-swirl-secondary {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: night-wind-drift 18s ease-in-out infinite alternate;
+}
+
+.night-wind-swirl-secondary {
+  animation-duration: 23s;
+  animation-delay: -7s;
 }
 
 .brush-orbit {
@@ -282,7 +299,7 @@ body {
 }
 
 .hero-oil-texture {
-  animation: hero-oil-drift 18s ease-in-out infinite alternate;
+  background-position: 0 0;
 }
 
 .hero-title-reveal {
@@ -606,6 +623,32 @@ body {
   box-shadow: inset 0 0 70px rgba(84, 127, 224, 0.14);
 }
 
+.data-image-preview {
+  transition: border-color 500ms ease, box-shadow 500ms ease, transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.data-image-preview:hover,
+.data-image-preview:focus-within {
+  border-color: rgba(165, 207, 255, 0.62);
+  box-shadow:
+    inset 0 0 70px rgba(84, 127, 224, 0.14),
+    0 20px 64px rgba(84, 127, 224, 0.3),
+    0 0 30px rgba(103, 232, 249, 0.14);
+  transform: scale(1.012);
+}
+
+.data-image-preview:hover img,
+.data-image-preview:focus-within img {
+  filter: brightness(1.06);
+  transform: scale(1.025);
+}
+
+.data-image-lightbox {
+  box-shadow:
+    0 30px 100px rgba(0, 0, 0, 0.64),
+    0 0 70px rgba(84, 127, 224, 0.2);
+}
+
 .data-preview-node {
   animation: data-preview-node-pulse 4.8s ease-in-out infinite;
 }
@@ -730,20 +773,20 @@ body {
 @keyframes shimmer-stars {
   from {
     opacity: 0.46;
-    transform: translate3d(0, 0, 0);
   }
   to {
     opacity: 0.86;
-    transform: translate3d(12px, -8px, 0);
   }
 }
 
-@keyframes swirl-drift {
+@keyframes night-wind-drift {
   from {
-    transform: translate3d(-16px, 8px, 0) rotate(-2deg) scale(1);
+    opacity: 0.62;
+    transform: translate3d(-3px, 2px, 0) rotate(-0.5deg) scaleX(0.995);
   }
   to {
-    transform: translate3d(18px, -10px, 0) rotate(2deg) scale(1.03);
+    opacity: 0.82;
+    transform: translate3d(5px, -3px, 0) rotate(0.7deg) scaleX(1.012);
   }
 }
 
@@ -793,17 +836,6 @@ body {
   }
 }
 
-@keyframes hero-oil-drift {
-  from {
-    background-position: 0 0;
-    transform: scale(1.01);
-  }
-  to {
-    background-position: 42px 26px;
-    transform: scale(1.035);
-  }
-}
-
 @keyframes title-brush-reveal {
   from {
     opacity: 0;
@@ -820,6 +852,8 @@ body {
   .hero-oil-texture,
   .hero-title-reveal::after,
   .node-pulse,
+  .night-wind-swirl-primary,
+  .night-wind-swirl-secondary,
   .painterly-swirl,
   .slow-spin,
   .star-field,
@@ -852,6 +886,15 @@ body {
   .page-two-story-card:hover .page-two-card-shimmer,
   .page-two-card-star,
   .page-two-story-card:hover .page-two-card-star {
+    transform: none;
+    transition: none;
+  }
+
+  .data-image-preview:hover,
+  .data-image-preview:focus-within,
+  .data-image-preview:hover img,
+  .data-image-preview:focus-within img {
+    filter: none;
     transform: none;
     transition: none;
   }
